@@ -13,6 +13,7 @@ isort := $(PYTHON) -m isort
 mypy := $(PYTHON) -m mypy
 
 pysrcs :=
+pysrcs += $(wildcard 2021/*.py)
 
 .PHONY: all
 all:
