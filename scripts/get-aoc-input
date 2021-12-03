@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+
+die() {
+    printf '%s\n' "$1" >&2
+    exit 1
+}
+
+error() {
+    die "ERROR: $1"
+}
+
+show_help() {
+    echo 'Usage: get-aoc-input [-s] YEAR DAY'
+    echo 'Get Advent of Code puzzle input for YEAR and DAY.'
+    echo ''
+    echo 'Mandatory arguments to long options are mandatory for short options too.'
+    echo '   -s, --session VALUE	cookie session value for AoC login'
+}
+
+download() {
+    local session="$1"
+    local year="$2"
+    local day="$3"
+
+    command curl \
+        -s \
+        -b "session=$session" \
+        "https://adventofcode.com/$year/day/$day/input"
+}
+
+main() {
+    local session
+
+    while :; do
+        case "$1" in
+        -h|--help)
+            show_help
+            exit
+            ;;
+        -s|--session)
+            if [[ -n "$2" ]]; then
+                session="$2"
+                shift
+            else
+                error '--session requires a non-empty option argument'
+            fi
+            ;;
+        -?*)
+            error "$(printf 'Unknown option: %s\n' "$1")"
+            ;;
+        *) # No more options, break out.
+            break
+
+        esac
+
+        shift
+    done
+
+    if [[ "$#" -lt 1 ]]; then
+        error 'Need to specify a AoC year (i.e., 2015–latest)'
+    fi
+
+    if [[ "$#" -lt 2 ]]; then
+        error 'Need specify a day (i.e., 1–25)'
+    fi
+
+    session=${session:-"$AOC_SESSION"}
+    if [[ -z "$session" ]]; then
+        error 'Need a cookie session ID to get user puzzle input'
+    fi
+
+    download "$session" "$1" "$2"
+}
+main "$@"

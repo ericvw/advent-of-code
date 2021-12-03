@@ -1,0 +1,10 @@
+# Please keep each section in :sort order.
+
+# Editors
+*.swp
+
+# Answers for each puzzle.
+answer_*.txt
+
+# Temporary input for puzzle examples.
+example.txt
