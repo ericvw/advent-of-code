@@ -5,8 +5,6 @@ SHELL := bash
 .DELETE_ON_ERROR:
 .SUFFIXES:
 
-scriptdir := $(CURDIR)/../scripts
-
 PYTHON ?= python
 
 black := $(PYTHON) -m black
@@ -17,15 +15,10 @@ mypy := $(PYTHON) -m mypy
 srcs := $(wildcard *.py)
 answers := $(subst puzzle,answer,$(srcs:.py=.txt))
 
-.PHONY: all
-all: $(answers)
+include $(CURDIR)/../mk-common/common.mk
 
 answer_%.txt: puzzle_%.py input_%.txt
 	$(PYTHON) ./$< < $(filter-out $<, $^) | tee $@
-
-.NOTINTERMEDIATE: input_%.txt
-input_%.txt:
-	$(scriptdir)/get-aoc-input $(shell basename $(CURDIR)) $(shell echo $* | sed 's/^0*//') > $@
 
 .PHONY: lint
 lint: lint-format lint-flake8 lint-types lint-imports
@@ -50,10 +43,6 @@ lint-types:
 format:
 	$(isort) $(srcs)
 	$(black) $(srcs)
-
-.PHONY: clean
-clean:
-	$(RM) $(answers)
 
 .PHONY: distclean
 distclean: clean
