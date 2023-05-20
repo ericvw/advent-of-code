@@ -30,6 +30,5 @@ for day in range(DAYS[-1]):
     population = new_population
     population_per_day[day] = sum(population.values())
 
-# Result
-for day in DAYS:
-    print(f"{day}: {population_per_day[day - 1]}")
+for i, day in enumerate(DAYS):
+    print(f"Part {i + 1}: ", population_per_day[day - 1])

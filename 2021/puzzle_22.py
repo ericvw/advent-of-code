@@ -102,9 +102,8 @@ def reboot_reactor(reboot_sequence: Sequence[RebootStep]) -> int:
     return sum(c.volume for c in cubes)
 
 
-# Result
 lit_count = reboot_reactor(reboot_steps_within_50)
-print(f"Lit cubes within [-50, 50]: {lit_count}")
+print("Part 1:", lit_count)
 
 lit_count = reboot_reactor(reboot_steps)
-print(f"Lit cubes: {lit_count}")
+print("Part 2:", lit_count)

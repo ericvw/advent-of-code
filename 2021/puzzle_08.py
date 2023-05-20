@@ -59,7 +59,5 @@ for signals, outputs in entries:
     )
 
 
-# Result 1
-print(f"Occurrences of 1, 4, 7, or 8: {unique_digit_count}")
-# Result 2
-print(f"Output value sum: {output_sum}")
+print("Part 1:", unique_digit_count)
+print("Part 2:", output_sum)

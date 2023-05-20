@@ -46,9 +46,6 @@ valid_trajectories = [
 ]
 
 
-# Result 1
 highest_y = max(y for t in valid_trajectories for x, y in t)
-print(f"Highest possible y position: {highest_y}")
-
-# Result 2
-print(f"Number of trajectories that land in target: {len(valid_trajectories)}")
+print("Part 1:", highest_y)
+print("Part 2:", len(valid_trajectories))

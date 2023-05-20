@@ -107,7 +107,6 @@ def count_pixels(image: Sequence[Sequence[str]], pixel: PixelType) -> int:
     return sum(col.count(pixel.value) for col in image)
 
 
-# Result
-for step in STEPS:
+for i, step in enumerate(STEPS):
     lit_pixels = count_pixels(enhance(input_image, input_algo, step), PixelType.LIGHT)
-    print(f"Lit pixels after {step} enhancements: {lit_pixels}")
+    print(f"Part {i + 1}:", lit_pixels)

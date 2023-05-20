@@ -68,12 +68,10 @@ def expand_cave(cavern: list[list[int]], factor: int) -> list[list[int]]:
     return result
 
 
-# Result 1
 risk = calculate_min_risk(cavern, (0, 0), (CAVERN_ROWS - 1, CAVERN_COLS - 1))
-print(f"Lowest total risk: {risk}")
+print("Part 1:", risk)
 
-# Result 2
 risk_5x = calculate_min_risk(
     expand_cave(cavern, 5), (0, 0), ((CAVERN_ROWS * 5) - 1, (CAVERN_COLS * 5) - 1)
 )
-print(f"Lowest total risk 5x: {risk_5x}")
+print("Part 2:", risk_5x)

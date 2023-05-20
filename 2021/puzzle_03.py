@@ -40,11 +40,9 @@ def extract_rating(
     return int(candidates.pop(), 2)
 
 
-# Result 1
 gamma, epsilon = compute_gamma_and_epsilon(report)
-print(f"Power consumption: {gamma * epsilon}")
+print("Part 1:", gamma * epsilon)
 
-# Result 2
 oxygen_rating = extract_rating(report, lambda m, l: "1" if m[1] == l[1] else m[0])
 co2_rating = extract_rating(report, lambda m, l: "0" if m[1] == l[1] else l[0])
-print(f"Life support rating: {oxygen_rating * co2_rating}")
+print("Part 2:", oxygen_rating * co2_rating)

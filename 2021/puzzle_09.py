@@ -58,10 +58,8 @@ def basin_size(low_point: tuple[int, int]) -> int:
 
 basin_sizes = [basin_size(p) for p in low_points]
 
-# Result 1
 risk_level = sum((heightmap[x][y] + 1 for x, y in low_points))
-print(f"Risk level: {risk_level}")
+print("Part 1:", risk_level)
 
-# Result 2
 three_largest_basins_product = math.prod(islice(sorted(basin_sizes, reverse=True), 3))
-print(f"Product of three largest basins: {three_largest_basins_product}")
+print("Part 2:", three_largest_basins_product)

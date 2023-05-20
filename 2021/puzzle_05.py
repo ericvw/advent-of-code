@@ -33,10 +33,9 @@ for (x1, y1), (x2, y2) in lines:
             (x1 + i, y1 + (i * y_direction)) for i in range(x2 + 1 - x1)
         )
 
-# Result
 overlap_non_diag = sum(1 for point, count in counter_non_diag.items() if count > 1)
-print(f"Non-diagonal overlapping: {overlap_non_diag}")
+print("Part 1:", overlap_non_diag)
 
 counter_diag.update(counter_non_diag.elements())
 overlapping = sum(1 for point, count in counter_diag.items() if count > 1)
-print(f"Overlapping: {overlapping}")
+print("Part 2:", overlapping)

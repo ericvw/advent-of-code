@@ -73,9 +73,8 @@ def real_game(
     return count_wins(*players)
 
 
-# Result
 scores, roll_count = practice_game(*start_positions)
-print(f"Practice - Losing score multiplied by die rolls: {min(scores) * roll_count}")
+print("Part 1:", min(scores) * roll_count)
 
 wins = real_game(*start_positions)
-print(f"Real - Most universal wins: {max(wins)}")
+print("Part 2:", max(wins))

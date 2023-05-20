@@ -90,8 +90,5 @@ def parse_packet(pkt: StringIO) -> int:
 version_sum = 0
 value = parse_packet(StringIO(binary_tx))
 
-# Result 1
-print(f"Sum of all version numbers: {version_sum}")
-
-# Result 2
-print(f"Transmission value: {value}")
+print("Part 1:", version_sum)
+print("Part 2:", value)
