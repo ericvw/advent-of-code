@@ -42,10 +42,9 @@ for axis, fold in folds:
 
     n_dots_per_fold.append(len(dots))
 
-# Result 1
-print(f"Dots visible after first fold: {n_dots_per_fold[0]}")
+print("Part 1:", n_dots_per_fold[0])
 
-# Result 2
+print("Part 2:")
 paper = [[" "] * (MAX_X + 1) for _ in range(MAX_Y + 1)]
 for x, y in dots:
     paper[y][x] = "#"

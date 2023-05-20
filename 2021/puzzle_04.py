@@ -56,5 +56,5 @@ def final_score(winner_idx: int, call_idx: int) -> int:
     return unmarked_sum * call
 
 
-print(f"First Winner: {final_score(*winners[0])}")
-print(f"Last Winner: {final_score(*winners[-1])}")
+print("Part 1:", final_score(*winners[0]))
+print("Part 2:", final_score(*winners[-1]))

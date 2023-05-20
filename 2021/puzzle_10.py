@@ -53,13 +53,11 @@ for line in nav_subsystem:
         completion_scores.append(completion_score)
 
 
-# Result 1
 error_score = sum(
     illegal_char_score[char] * count
     for char, count in Counter(illegal_characters).items()
 )
-print(f"Total syntax error score: {error_score}")
+print("Part 1:", error_score)
 
-# Result 2
 middle_completion_score = median(sorted(completion_scores))
-print(f"Middle completion score: {middle_completion_score}")
+print("Part 2:", middle_completion_score)

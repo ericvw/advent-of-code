@@ -109,12 +109,10 @@ while unidentified_scanners:
     else:
         unidentified_scanners.append(scanner)
 
-# Result 1
-print("Number of beacons:", len(beacons))
+print("Part 1:", len(beacons))
 
-# Result 2
 print(
-    "Largest Manhattan distance:",
+    "Part 2:",
     max(
         manhattan_distance(a, b)
         for a, b in combinations((s.position for s in scanners), 2)

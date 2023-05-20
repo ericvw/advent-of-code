@@ -18,12 +18,5 @@ def increases_per_window_size(measurements: list[int], window_size: int) -> int:
     return increases
 
 
-# Result 1
-print(
-    f"Measurements largest than previous: {increases_per_window_size(measurements, 1)}"
-)
-
-# Result 2
-print(
-    f"3-Window sums larger than previous: {increases_per_window_size(measurements, 3)}"
-)
+print("Part 1:", increases_per_window_size(measurements, 1))
+print("Part 2:", increases_per_window_size(measurements, 3))

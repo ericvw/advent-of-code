@@ -64,6 +64,5 @@ while True:
     if flashes_per_step(octos) == N_OCTOS:
         break
 
-# Result
-print(f"Flashes after 100 steps: {flashes}")
-print(f"First step all flash: {step}")
+print("Part 1:", flashes)
+print("Part 2:", step)

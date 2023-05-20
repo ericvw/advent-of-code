@@ -26,6 +26,5 @@ for direction, value in course:
 
 assert part1_depth == aim
 
-# Result
-print(f"Part 1: {horizontal * part1_depth}")
-print(f"Part 2: {horizontal * part2_depth}")
+print("Part 1:", horizontal * part1_depth)
+print("Part 2:", horizontal * part2_depth)

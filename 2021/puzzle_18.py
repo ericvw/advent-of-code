@@ -149,11 +149,9 @@ def snailfish_magnitude(node: Node) -> int:
     return snailfish_magnitude(node.left) * 3 + snailfish_magnitude(node.right) * 2
 
 
-# Result 1
 snail_sum = functools.reduce(snailfish_add, map(list2tree, hw_list))
-print("Magnitude of final sum:", snailfish_magnitude(snail_sum))
+print("Part 1:", snailfish_magnitude(snail_sum))
 
-# Result 2
 max_magnitude = max(
     map(
         snailfish_magnitude,
@@ -166,4 +164,4 @@ max_magnitude = max(
         ),
     )
 )
-print("Max magnitude of any sum of two pairs", max_magnitude)
+print("Part 2:", max_magnitude)

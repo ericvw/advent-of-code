@@ -33,7 +33,6 @@ for _ in range(STEPS[-1]):
     polymer_counts = step_counts
     counts_per_step.append(elem_counts.copy())
 
-# Result
-for s in STEPS:
+for i, s in enumerate(STEPS):
     counts = counts_per_step[s - 1].most_common()
-    print(f"Steps {s}: {counts[0][1] - counts[-1][1]}")
+    print(f"Part {i + 1}",  counts[0][1] - counts[-1][1])
