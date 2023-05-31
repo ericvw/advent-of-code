@@ -35,4 +35,4 @@ for _ in range(STEPS[-1]):
 
 for i, s in enumerate(STEPS):
     counts = counts_per_step[s - 1].most_common()
-    print(f"Part {i + 1}",  counts[0][1] - counts[-1][1])
+    print(f"Part {i + 1}", counts[0][1] - counts[-1][1])

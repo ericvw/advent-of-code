@@ -3,6 +3,9 @@
 # Editors
 *.swp
 
+# Python version managed by pyenv.
+.python-version
+
 # Answers for each puzzle.
 answer_*.txt
 

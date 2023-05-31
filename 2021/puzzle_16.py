@@ -50,7 +50,7 @@ def extract_operator_packets(pkt: StringIO) -> list[int]:
         for _ in range(n_pkts):
             packets.append(parse_packet(pkt))
     else:
-        assert False, "Unknown lenght type ID!"
+        raise AssertionError("Unknown lenght type ID!")
 
     return packets
 
@@ -84,7 +84,7 @@ def parse_packet(pkt: StringIO) -> int:
         assert len(packets) == 2
         return int(packets[0] == packets[1])
     # XXX: Should never hit this!
-    assert False
+    raise AssertionError()
 
 
 version_sum = 0

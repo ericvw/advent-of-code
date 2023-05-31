@@ -28,7 +28,6 @@ def practice_game(
     p2_start: int,
     goal: int = 1000,
 ) -> tuple[tuple[int, ...], int]:
-
     die = cycle(range(1, 101))
     players = (Player(p1_start), Player(p2_start))
     roll_count = 0

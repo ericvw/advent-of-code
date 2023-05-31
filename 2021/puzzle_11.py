@@ -31,7 +31,7 @@ def neighbors(x: int, y: int) -> Iterable[tuple[int, int]]:
 def flashes_per_step(octos: list[list[int]]) -> int:
     flashed_to_spread: deque[tuple[int, int]] = deque()
     for x, row in enumerate(octos):
-        for y, val in enumerate(row):
+        for y, _ in enumerate(row):
             octos[x][y] += 1
             if octos[x][y] > MAX_ENERGY:
                 octos[x][y] = 0
@@ -55,7 +55,7 @@ def flashes_per_step(octos: list[list[int]]) -> int:
 
 step = 0
 flashes = 0
-for i in range(100):
+for _i in range(100):
     step += 1
     flashes += flashes_per_step(octos)
 

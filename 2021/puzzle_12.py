@@ -33,5 +33,5 @@ def num_paths(graph: Graph, start: str, end: str, *, twice: bool = False) -> int
     return recursive_num_paths(graph, start, set(), twice)
 
 
-print("Part 1:", num_paths(graph, 'start', 'end'))
-print("Part 2:", num_paths(graph, 'start', 'end', twice=True))
+print("Part 1:", num_paths(graph, "start", "end"))
+print("Part 2:", num_paths(graph, "start", "end", twice=True))

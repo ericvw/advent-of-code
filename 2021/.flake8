@@ -1,4 +1,0 @@
-; Please keep keys and lists in sorted order.
-
-[flake8]
-max-line-length = 88

@@ -94,7 +94,7 @@ def enhance(
     alternate_pixel = (
         algorithm[0] == PixelType.LIGHT.value and algorithm[-1] == PixelType.DARK.value
     )
-    for step in range(steps):
+    for _ in range(steps):
         img = _enhance(img, algorithm, infinite_pixel)
         if alternate_pixel:
             infinite_pixel = (

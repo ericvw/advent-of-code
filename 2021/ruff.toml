@@ -1,0 +1,20 @@
+extend-select = [
+    "W", # pycodestyle warnings
+    "I", # isort
+    "N", # pep8-naming
+    "B", # flake8-bugbear
+]
+
+# Group errors by file.
+format = "grouped"
+
+# Show source context of error.
+show-source = true
+
+# Show sumamry of fixes.
+show-fixes = true
+
+[isort]
+force-single-line = true
+force-sort-within-sections = true
+order-by-type = false
