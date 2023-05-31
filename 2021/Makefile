@@ -8,9 +8,8 @@ SHELL := bash
 PYTHON ?= python
 
 black := $(PYTHON) -m black
-flake8 := $(PYTHON) -m flake8
-isort := $(PYTHON) -m isort
 mypy := $(PYTHON) -m mypy
+ruff := $(PYTHON) -m ruff
 
 srcs := $(wildcard *.py)
 answers := $(subst puzzle,answer,$(srcs:.py=.txt))
@@ -21,19 +20,15 @@ answer_%.txt: puzzle_%.py input_%.txt
 	$(PYTHON) ./$< < $(filter-out $<, $^) | tee $@
 
 .PHONY: lint
-lint: lint-format lint-flake8 lint-types lint-imports
+lint: lint-types lint-ruff lint-format
 
-.PHONY: lint-flake8
-lint-flake8:
-	$(flake8) $(srcs)
+.PHONY: lint-ruff
+lint-ruff:
+	$(ruff) check $(srcs)
 
 .PHONY: lint-format
 lint-format:
 	$(black) --check --diff $(srcs)
-
-.PHONY: lint-imports
-lint-imports:
-	$(isort) --check-only $(srcs)
 
 .PHONY: lint-types
 lint-types:
@@ -41,9 +36,10 @@ lint-types:
 
 .PHONY: format
 format:
-	$(isort) $(srcs)
+	$(ruff) --fix-only $(srcs)
 	$(black) $(srcs)
 
 .PHONY: distclean
 distclean: clean
 	$(RM) -r .mypy_cache
+	$(ruff) clean

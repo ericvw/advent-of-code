@@ -8,7 +8,7 @@ report = list(line.rstrip() for line in fileinput.input())
 
 # Main
 def compute_gamma_and_epsilon(report: list[str]) -> tuple[int, int]:
-    transposed = list(zip(*report))
+    transposed = list(zip(*report, strict=True))
     counters = list(map(Counter, transposed))
 
     gamma = ""
@@ -29,7 +29,7 @@ def extract_rating(
 
     n_cols = len(candidates[0])
     for i in range(n_cols):
-        transposed = list(zip(*candidates))
+        transposed = list(zip(*candidates, strict=True))
         c = Counter(transposed[i])
 
         preferred_bit = preferred_bit_fn(*c.most_common())
@@ -43,6 +43,6 @@ def extract_rating(
 gamma, epsilon = compute_gamma_and_epsilon(report)
 print("Part 1:", gamma * epsilon)
 
-oxygen_rating = extract_rating(report, lambda m, l: "1" if m[1] == l[1] else m[0])
-co2_rating = extract_rating(report, lambda m, l: "0" if m[1] == l[1] else l[0])
+oxygen_rating = extract_rating(report, lambda mc, lc: "1" if mc[1] == lc[1] else mc[0])
+co2_rating = extract_rating(report, lambda mc, lc: "0" if mc[1] == lc[1] else lc[0])
 print("Part 2:", oxygen_rating * co2_rating)

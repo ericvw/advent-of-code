@@ -5,8 +5,8 @@ import fileinput
 from itertools import combinations
 import math
 from operator import add
-from typing import Generator
 from typing import cast
+from typing import Generator
 
 # Constants
 COMMON_BEACON_THRESHOLD = 12

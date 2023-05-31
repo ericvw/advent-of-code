@@ -38,7 +38,7 @@ for axis, fold in folds:
             dots.add((x, (2 * fold) - y))
         MAX_Y = fold
     else:
-        assert False, "Axis unrecognized: {axis}"
+        raise AssertionError("Axis unrecognized: {axis}")
 
     n_dots_per_fold.append(len(dots))
 
