@@ -16,7 +16,7 @@ answer_%.txt: puzzle_% input_%.txt
 	./$< < $(filter-out $<, $^) | tee $@
 
 .NOTINTERMEDIATE: puzzle_%
-puzzle_%: puzzle_%.nim
+puzzle_%: puzzle_%.nim nim.cfg
 	$(NIM) c $<
 
 .PHONY: format
