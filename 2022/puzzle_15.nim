@@ -12,7 +12,7 @@ type
         beacon: Coordinate
         distance: int
 
-func manhattan_distance(a, b: Coordinate): int =
+func manhattanDistance(a, b: Coordinate): int =
     abs(b.x - a.x) + abs(b.y - a.y)
 
 const LINE_PATTERN = "Sensor at x=$i, y=$i: closest beacon is at x=$i, y=$i"
@@ -24,7 +24,7 @@ let readings = collect:
         let
             s = Coordinate(x: sensorX, y: sensorY)
             b = Coordinate(x: beaconX, y: beaconY)
-        SensorReading(sensor: s, beacon: b, distance: manhattan_distance(s, b))
+        SensorReading(sensor: s, beacon: b, distance: manhattanDistance(s, b))
 
 func xCoordinatesWithinSensorRangeForY(
     readings: seq[SensorReading],
@@ -185,7 +185,7 @@ let inRange = intersections.filterIt(
 )
 
 let distressBeacon = inRange.filter(
-    (ipt) => readings.allIt(manhattan_distance(it.sensor, ipt) > it.distance)
+    (ipt) => readings.allIt(manhattanDistance(it.sensor, ipt) > it.distance)
 )[0]
 
 func tuningFrequency(xy: Coordinate): int =

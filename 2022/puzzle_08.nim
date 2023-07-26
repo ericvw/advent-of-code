@@ -11,12 +11,12 @@ let treeMap: TreeMap = collect:
         line.map((h) => h.ord - '0'.ord)
 
 let
-    ROWS = treeMap.len
-    COLS = treeMap[0].len
+    rows = treeMap.len
+    cols = treeMap[0].len
 
 proc isEdge(x, y: int): bool =
-    x - 1 < 0 or x + 1 >= ROWS or
-    y - 1 < 0 or y + 1 >= COLS
+    x - 1 < 0 or x + 1 >= rows or
+    y - 1 < 0 or y + 1 >= cols
 
 proc visibleFromEdge(tm: TreeMap, x, y: int): bool =
     proc isVisible(tm: TreeMap, h, x, y, xStep = 0, yStep = 0): bool =
@@ -34,8 +34,8 @@ proc visibleFromEdge(tm: TreeMap, x, y: int): bool =
            isVisible(tm, h, x, y, yStep = -1)
 
 var nVisibile = 0
-for r in 0 ..< ROWS:
-    for c in 0 ..< COLS:
+for r in 0 ..< rows:
+    for c in 0 ..< cols:
         if visibleFromEdge(treeMap, r, c):
             inc(nVisibile)
 
@@ -57,8 +57,8 @@ proc scenicScore(tm: TreeMap, x, y: int): int =
            viewDistance(tm, h, x, y, yStep = -1)
 
 var maxScenicScore = 0
-for r in 0 ..< ROWS:
-    for c in 0 ..< COLS:
+for r in 0 ..< rows:
+    for c in 0 ..< cols:
         maxScenicScore = max(scenicScore(treeMap, r, c), maxScenicScore)
 
 echo "Part 2: ", maxScenicScore
