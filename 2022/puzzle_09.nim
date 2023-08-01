@@ -4,24 +4,19 @@ import std/sequtils
 import std/strutils
 import std/sugar
 
+const
+    DOWN = 'D'
+    LEFT = 'L'
+    RIGHT = 'R'
+    UP = 'U'
+
 type
-    Direction = enum
-        DOWN = 'D'
-        LEFT = 'L'
-        RIGHT = 'R'
-        UP = 'U'
-
-    Motion = tuple[direction: Direction, steps: int]
-
-# XXX: Parsing doesn't cover all char values; thus, silence the compiler.
-{.warning[HoleEnumConv]: off.}
+    Motion = tuple[direction: char, steps: int]
 
 let motions: seq[Motion] = collect:
     for line in stdin.lines:
         let motion = line.splitWhitespace()
-        (Direction(motion[0][0]), motion[1].parseInt)
-
-{.warning[HoleEnumConv]: on.}
+        (motion[0][0], motion[1].parseInt)
 
 type
     Coordinate = tuple[x, y: int]
@@ -49,6 +44,9 @@ proc simulateRope(numKnots: int, motions: seq[Motion]): int =
             delta = (1, 0)
         of UP:
             delta = (0, 1)
+        else:
+            # XXX: All cases should be covered.
+            assert false
 
         for s in 0 ..< m.steps:
             # Move the head knot.

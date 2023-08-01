@@ -107,7 +107,7 @@ let divisorProduct = foldl(monkeys.map((m) => m.test.divisor), a * b)
 
 proc monkeyBusiness(
     monkeysInit: seq[Monkey],
-    rounds,
+    rounds: int,
     reliefFactor: int = 1
 ): int =
     var monkeys = monkeysInit

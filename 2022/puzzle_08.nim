@@ -19,7 +19,7 @@ proc isEdge(x, y: int): bool =
     y - 1 < 0 or y + 1 >= cols
 
 proc visibleFromEdge(tm: TreeMap, x, y: int): bool =
-    proc isVisible(tm: TreeMap, h, x, y, xStep = 0, yStep = 0): bool =
+    proc isVisible(tm: TreeMap, h, x, y: int, xStep = 0, yStep = 0): bool =
         if isEdge(x, y):
             return true
         elif h - treeMap[x + xStep][y + yStep] > 0:
@@ -42,7 +42,7 @@ for r in 0 ..< rows:
 echo "Part 1: ", nVisibile
 
 proc scenicScore(tm: TreeMap, x, y: int): int =
-    proc viewDistance(tm: TreeMap, h, x, y, xStep = 0, yStep = 0): int =
+    proc viewDistance(tm: TreeMap, h, x, y: int, xStep = 0, yStep = 0): int =
         if isEdge(x, y):
             return 0
         elif h - treeMap[x + xStep][y + yStep] > 0:
