@@ -5,7 +5,7 @@ SHELL := bash
 .DELETE_ON_ERROR:
 .SUFFIXES:
 
-NIM := nim
+NIM ?= nim
 
 srcs := $(wildcard puzzle_*.nim)
 answers := $(subst puzzle,answer,$(srcs:.nim=.txt))
