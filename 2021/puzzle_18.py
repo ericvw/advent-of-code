@@ -33,7 +33,7 @@ class Node:
 def list2tree(lst: Any, parent: Optional[Node] = None) -> Node:
     # XXX: Recursive types aren't supported in mypy; thus, 'Any'.
     n = Node(parent=parent)
-    if type(lst) == int:
+    if isinstance(lst, int):
         n.val = lst
     else:
         left, right = lst
