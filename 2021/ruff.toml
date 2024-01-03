@@ -6,7 +6,7 @@ extend-select = [
 ]
 
 # Group errors by file.
-format = "grouped"
+output-format = "grouped"
 
 # Show source context of error.
 show-source = true
