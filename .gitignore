@@ -11,3 +11,6 @@ answer_*.txt
 
 # Temporary input for puzzle examples.
 example.txt
+
+# Generated binaries from compilation.
+puzzle_[0-2][0-9]
