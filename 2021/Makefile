@@ -11,12 +11,13 @@ black := $(PYTHON) -m black
 mypy := $(PYTHON) -m mypy
 ruff := $(PYTHON) -m ruff
 
-srcs := $(wildcard *.py)
-answers := $(subst puzzle,answer,$(srcs:.py=.txt))
+ext := .py
+srcs := $(wildcard puzzle_*$(ext))
+answers := $(subst puzzle,answer,$(srcs:$(ext)=.txt))
 
 include $(CURDIR)/../mk-common/common.mk
 
-answer_%.txt: puzzle_%.py input_%.txt
+answer_%.txt: puzzle_%$(ext) input_%.txt
 	$(PYTHON) ./$< < $(filter-out $<, $^) | tee $@
 
 .PHONY: lint

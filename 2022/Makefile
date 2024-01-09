@@ -7,8 +7,9 @@ SHELL := bash
 
 NIM ?= nim
 
-srcs := $(wildcard puzzle_*.nim)
-answers := $(subst puzzle,answer,$(srcs:.nim=.txt))
+ext := .nim
+srcs := $(wildcard puzzle_*$(ext))
+answers := $(subst puzzle,answer,$(srcs:$(ext)=.txt))
 
 include $(CURDIR)/../mk-common/common.mk
 
@@ -16,7 +17,7 @@ answer_%.txt: puzzle_% input_%.txt
 	./$< < $(filter-out $<, $^) | tee $@
 
 .NOTINTERMEDIATE: puzzle_%
-puzzle_%: puzzle_%.nim nim.cfg
+puzzle_%: puzzle_%$(ext) nim.cfg
 	$(NIM) c $<
 
 .PHONY: format
