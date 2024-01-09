@@ -1,0 +1,54 @@
+---
+name: Puzzles
+
+on:
+  push:
+    branches:
+      - main
+      - 'maint/*'
+
+  schedule:
+    - cron: '0 0 1 * *'
+
+jobs:
+  aoc-2021:
+    name: AoC 2021 — Python
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./2021
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: Run
+        run: make
+
+      - name: Install auxillary tools
+        run: pip install -U -r requirements.txt
+
+      - name: Lint
+        run: make lint
+
+  aoc-2022:
+    name: AoC 2022 — Nim
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./2022
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up enviroment
+        uses: jiro4989/setup-nim-action@v1
+
+      - name: Run
+        run: make
