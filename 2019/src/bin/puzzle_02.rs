@@ -4,7 +4,7 @@ use std::ops;
 use aoc2019::intcode;
 
 fn run_program(prog: &[i32], addr1_val: i32, addr2_val: i32) -> i32 {
-    let mut computer = intcode::Computer::new(prog);
+    let mut computer = intcode::Computer::new(prog, &[]);
 
     computer.memory[1] = addr1_val;
     computer.memory[2] = addr2_val;
