@@ -32,6 +32,7 @@ $(outputdir)/puzzle_%: $(srcbindir)/puzzle_%$(ext)
 	$(CARGO) build --profile $(PROFILE) --bin $(basename $(notdir $<))
 
 $(outputdir)/puzzle_02: $(intcode_deps)
+$(outputdir)/puzzle_05: $(intcode_deps)
 
 .PHONY: lint
 lint: lint-code lint-format
