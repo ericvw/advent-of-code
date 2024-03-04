@@ -8,8 +8,8 @@ enum Opcode {
     Halt = 99,
 }
 
-impl From<u32> for Opcode {
-    fn from(x: u32) -> Self {
+impl From<i32> for Opcode {
+    fn from(x: i32) -> Self {
         match x {
             1 => Opcode::Add,
             2 => Opcode::Multiply,
@@ -21,7 +21,7 @@ impl From<u32> for Opcode {
 
 const INSTRUCTION_LEN: usize = 4;
 
-fn extract_parameters(instruction: &[u32]) -> (usize, usize, usize) {
+fn extract_parameters(instruction: &[i32]) -> (usize, usize, usize) {
     (
         usize::try_from(instruction[1]).unwrap(),
         usize::try_from(instruction[2]).unwrap(),
@@ -29,7 +29,7 @@ fn extract_parameters(instruction: &[u32]) -> (usize, usize, usize) {
     )
 }
 
-fn run_program(prog: &[u32], addr1_val: u32, addr2_val: u32) -> Vec<u32> {
+fn run_program(prog: &[i32], addr1_val: i32, addr2_val: i32) -> Vec<i32> {
     let mut prog = prog.to_vec();
 
     prog[1] = addr1_val;
@@ -56,7 +56,7 @@ fn run_program(prog: &[u32], addr1_val: u32, addr2_val: u32) -> Vec<u32> {
 }
 
 fn main() {
-    let intcode_prog: Vec<u32> = io::read_to_string(io::stdin())
+    let intcode_prog: Vec<i32> = io::read_to_string(io::stdin())
         .unwrap()
         .trim()
         .split(',')
@@ -65,8 +65,8 @@ fn main() {
 
     println!("Part 1: {}", run_program(&intcode_prog, 12, 2)[0]);
 
-    const TARGET_OUTPUT: u32 = 19690720;
-    const INPUT_RANGE: ops::RangeInclusive<u32> = 0..=99;
+    const TARGET_OUTPUT: i32 = 19690720;
+    const INPUT_RANGE: ops::RangeInclusive<i32> = 0..=99;
 
     let (noun, verb) = INPUT_RANGE
         .flat_map(|noun| INPUT_RANGE.map(move |verb| (noun, verb)))
