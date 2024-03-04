@@ -8,15 +8,30 @@ SHELL := bash
 CARGO ?= cargo
 PROFILE ?= release
 
+profiledir := release
+ifneq ($(PROFILE),release)
+profiledir := debug
+endif
+outputdir := target/$(profiledir)
+
 ext := .rs
-srcdir := src/bin
-srcs := $(wildcard $(srcdir)/puzzle_*$(ext))
+srcdir := src
+srcbindir := $(srcdir)/bin
+srcs := $(wildcard $(srcbindir)/puzzle_*$(ext))
 answers := $(subst puzzle,answer,$(patsubst %$(ext),%.txt, $(notdir $(srcs))))
+
+intcode_deps := $(wildcard $(srcdir)/*.rs)
 
 include $(CURDIR)/../mk-common/common.mk
 
-answer_%.txt: $(srcdir)/puzzle_%$(ext) input_%.txt
+answer_%.txt: $(outputdir)/puzzle_% input_%.txt
 	$(CARGO) run --profile $(PROFILE) --bin $(basename $(notdir $<)) < $(filter-out $<, $^) | tee $@
+
+.NOTINTERMEDIATE: $(outputdir)/puzzle_%
+$(outputdir)/puzzle_%: $(srcbindir)/puzzle_%$(ext)
+	$(CARGO) build --profile $(PROFILE) --bin $(basename $(notdir $<))
+
+$(outputdir)/puzzle_02: $(intcode_deps)
 
 .PHONY: lint
 lint: lint-code lint-format
