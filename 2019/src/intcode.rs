@@ -1,4 +1,3 @@
-use std::convert::From;
 use std::io;
 
 pub fn parse_program(input: impl io::Read) -> Vec<i32> {
@@ -12,29 +11,28 @@ pub fn parse_program(input: impl io::Read) -> Vec<i32> {
 
 const INSTRUCTION_LEN: usize = 4;
 
-enum Opcode {
-    Add = 1,
-    Multiply = 2,
-    Halt = 99,
+enum Instruction {
+    Add(usize, usize, usize),
+    Multiply(usize, usize, usize),
+    Halt,
 }
 
-impl From<i32> for Opcode {
-    fn from(x: i32) -> Self {
-        match x {
-            1 => Opcode::Add,
-            2 => Opcode::Multiply,
-            99 => Opcode::Halt,
-            _ => unreachable!(),
-        }
+fn fetch_instruction(memory: &[i32]) -> Instruction {
+    let opcode = memory[0];
+    match opcode {
+        1 => Instruction::Add(
+            usize::try_from(memory[1]).unwrap(),
+            usize::try_from(memory[2]).unwrap(),
+            usize::try_from(memory[3]).unwrap(),
+        ),
+        2 => Instruction::Multiply(
+            usize::try_from(memory[1]).unwrap(),
+            usize::try_from(memory[2]).unwrap(),
+            usize::try_from(memory[3]).unwrap(),
+        ),
+        99 => Instruction::Halt,
+        _ => unreachable!(),
     }
-}
-
-fn extract_parameters(instruction: &[i32]) -> (usize, usize, usize) {
-    (
-        usize::try_from(instruction[1]).unwrap(),
-        usize::try_from(instruction[2]).unwrap(),
-        usize::try_from(instruction[3]).unwrap(),
-    )
 }
 
 pub struct Computer {
@@ -43,21 +41,20 @@ pub struct Computer {
 
 impl Computer {
     pub fn run(&mut self) {
-        let mut pc: usize = 0;
+        let mut ip: usize = 0;
         loop {
-            match Opcode::from(self.memory[pc]) {
-                Opcode::Add => {
-                    let (addr1, addr2, dst) = extract_parameters(&self.memory[pc..]);
+            let instruction = fetch_instruction(&self.memory[ip..]);
+            match instruction {
+                Instruction::Add(addr1, addr2, dst) => {
                     self.memory[dst] = self.memory[addr1] + self.memory[addr2];
+                    ip += INSTRUCTION_LEN;
                 }
-                Opcode::Multiply => {
-                    let (addr1, addr2, dst) = extract_parameters(&self.memory[pc..]);
+                Instruction::Multiply(addr1, addr2, dst) => {
                     self.memory[dst] = self.memory[addr1] * self.memory[addr2];
+                    ip += INSTRUCTION_LEN;
                 }
-                Opcode::Halt => break,
+                Instruction::Halt => break,
             }
-
-            pc += INSTRUCTION_LEN;
         }
     }
 }
