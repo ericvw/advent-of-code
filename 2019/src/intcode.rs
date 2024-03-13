@@ -37,27 +37,28 @@ fn fetch_instruction(memory: &[i32]) -> Instruction {
 
 pub struct Computer {
     pub memory: Vec<i32>,
+    ip: usize,
 }
 
 impl Computer {
     pub fn new(program: &[i32]) -> Self {
         Self {
             memory: program.to_vec(),
+            ip: 0,
         }
     }
 
     pub fn run(&mut self) {
-        let mut ip: usize = 0;
         loop {
-            let instruction = fetch_instruction(&self.memory[ip..]);
+            let instruction = fetch_instruction(&self.memory[self.ip..]);
             match instruction {
                 Instruction::Add(addr1, addr2, dst) => {
                     self.memory[dst] = self.memory[addr1] + self.memory[addr2];
-                    ip += INSTRUCTION_LEN;
+                    self.ip += INSTRUCTION_LEN;
                 }
                 Instruction::Multiply(addr1, addr2, dst) => {
                     self.memory[dst] = self.memory[addr1] * self.memory[addr2];
-                    ip += INSTRUCTION_LEN;
+                    self.ip += INSTRUCTION_LEN;
                 }
                 Instruction::Halt => break,
             }
