@@ -17,24 +17,6 @@ enum Instruction {
     Halt,
 }
 
-fn fetch_instruction(memory: &[i32]) -> Instruction {
-    let opcode = memory[0];
-    match opcode {
-        1 => Instruction::Add(
-            usize::try_from(memory[1]).unwrap(),
-            usize::try_from(memory[2]).unwrap(),
-            usize::try_from(memory[3]).unwrap(),
-        ),
-        2 => Instruction::Multiply(
-            usize::try_from(memory[1]).unwrap(),
-            usize::try_from(memory[2]).unwrap(),
-            usize::try_from(memory[3]).unwrap(),
-        ),
-        99 => Instruction::Halt,
-        _ => unreachable!(),
-    }
-}
-
 pub struct Computer {
     pub memory: Vec<i32>,
     ip: usize,
@@ -48,9 +30,27 @@ impl Computer {
         }
     }
 
+    fn fetch_instruction(&self, memory: &[i32]) -> Instruction {
+        let opcode = memory[0];
+        match opcode {
+            1 => Instruction::Add(
+                usize::try_from(memory[1]).unwrap(),
+                usize::try_from(memory[2]).unwrap(),
+                usize::try_from(memory[3]).unwrap(),
+            ),
+            2 => Instruction::Multiply(
+                usize::try_from(memory[1]).unwrap(),
+                usize::try_from(memory[2]).unwrap(),
+                usize::try_from(memory[3]).unwrap(),
+            ),
+            99 => Instruction::Halt,
+            _ => unreachable!(),
+        }
+    }
+
     pub fn run(&mut self) {
         loop {
-            let instruction = fetch_instruction(&self.memory[self.ip..]);
+            let instruction = self.fetch_instruction(&self.memory[self.ip..]);
             match instruction {
                 Instruction::Add(addr1, addr2, dst) => {
                     self.memory[dst] = self.memory[addr1] + self.memory[addr2];
