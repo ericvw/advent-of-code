@@ -30,7 +30,8 @@ impl Computer {
         }
     }
 
-    fn fetch_instruction(&self, memory: &[i32]) -> Instruction {
+    fn fetch_instruction(&self) -> Instruction {
+        let memory = &self.memory[self.ip..];
         let opcode = memory[0];
         match opcode {
             1 => Instruction::Add(
@@ -50,7 +51,7 @@ impl Computer {
 
     pub fn run(&mut self) {
         loop {
-            let instruction = self.fetch_instruction(&self.memory[self.ip..]);
+            let instruction = self.fetch_instruction();
             match instruction {
                 Instruction::Add(addr1, addr2, dst) => {
                     self.memory[dst] = self.memory[addr1] + self.memory[addr2];
