@@ -40,6 +40,12 @@ pub struct Computer {
 }
 
 impl Computer {
+    pub fn new(program: &[i32]) -> Self {
+        Self {
+            memory: program.to_vec(),
+        }
+    }
+
     pub fn run(&mut self) {
         let mut ip: usize = 0;
         loop {
