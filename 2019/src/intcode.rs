@@ -27,10 +27,14 @@ enum Instruction {
     Halt,
 }
 
+pub enum State {
+    Halt,
+    Output(i32),
+}
+
 pub struct Computer {
     pub memory: Vec<i32>,
     input: VecDeque<i32>,
-    output: Option<i32>,
     ip: usize,
     modes: i32,
 }
@@ -48,7 +52,6 @@ impl Computer {
         Self {
             memory: program.to_vec(),
             input: input.iter().copied().collect(),
-            output: None,
             ip: 0,
             modes: 0,
         }
@@ -129,7 +132,7 @@ impl Computer {
         self.ip = usize::try_from(self.value(new_ip)).unwrap();
     }
 
-    pub fn run(&mut self) -> Option<i32> {
+    pub fn run(&mut self) -> State {
         loop {
             let instruction = self.fetch_instruction();
             match instruction {
@@ -143,9 +146,8 @@ impl Computer {
                     let val = self.input.pop_front().unwrap();
                     self.write(dst, val);
                 }
-                Instruction::Output(val) => {
-                    self.output = Some(self.value(val));
-                }
+                Instruction::Output(val) => return State::Output(self.value(val)),
+
                 Instruction::JumpIfTrue(cond, new_ip) => {
                     if self.value(cond) != 0 {
                         self.jump(new_ip);
@@ -172,10 +174,8 @@ impl Computer {
                         0
                     },
                 ),
-                Instruction::Halt => break,
+                Instruction::Halt => return State::Halt,
             }
         }
-
-        self.output
     }
 }
