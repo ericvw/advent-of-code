@@ -33,6 +33,7 @@ $(outputdir)/puzzle_%: $(srcbindir)/puzzle_%$(ext)
 
 $(outputdir)/puzzle_02: $(intcode_deps)
 $(outputdir)/puzzle_05: $(intcode_deps)
+$(outputdir)/puzzle_07: $(intcode_deps)
 
 .PHONY: lint
 lint: lint-code lint-format
