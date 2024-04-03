@@ -34,7 +34,7 @@ pub enum State {
 
 pub struct Computer {
     pub memory: Vec<i32>,
-    input: VecDeque<i32>,
+    pub input: VecDeque<i32>,
     ip: usize,
     modes: i32,
 }
