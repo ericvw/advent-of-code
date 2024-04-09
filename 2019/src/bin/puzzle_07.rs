@@ -2,7 +2,7 @@ use std::io;
 
 use aoc2019::intcode;
 
-fn run_amplifier_loop(program: &[i32], phase_settings: &[i32]) -> i32 {
+fn run_amplifier_loop(program: &[i64], phase_settings: &[i64]) -> i64 {
     let mut amplifiers: Vec<_> = phase_settings
         .iter()
         .map(|&phase_setting| intcode::Computer::new(program, &[phase_setting]))

@@ -3,7 +3,7 @@ use std::ops;
 
 use aoc2019::intcode;
 
-fn run_program(prog: &[i32], addr1_val: i32, addr2_val: i32) -> i32 {
+fn run_program(prog: &[i64], addr1_val: i64, addr2_val: i64) -> i64 {
     let mut computer = intcode::Computer::new(prog, &[]);
 
     computer.memory[1] = addr1_val;
@@ -19,8 +19,8 @@ fn main() {
 
     println!("Part 1: {}", run_program(&gravity_assist_program, 12, 2));
 
-    const TARGET_OUTPUT: i32 = 19690720;
-    const INPUT_RANGE: ops::RangeInclusive<i32> = 0..=99;
+    const TARGET_OUTPUT: i64 = 19690720;
+    const INPUT_RANGE: ops::RangeInclusive<i64> = 0..=99;
 
     let (noun, verb) = INPUT_RANGE
         .flat_map(|noun| INPUT_RANGE.map(move |verb| (noun, verb)))
