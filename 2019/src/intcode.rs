@@ -13,6 +13,7 @@ pub fn parse_program(input: impl io::Read) -> Vec<i64> {
 enum Parameter {
     Position(i64),
     Immediate(i64),
+    Relative(i64),
 }
 
 enum Instruction {
@@ -24,6 +25,7 @@ enum Instruction {
     JumpIfFalse(Parameter, Parameter),
     LessThan(Parameter, Parameter, Parameter),
     Equals(Parameter, Parameter, Parameter),
+    RelativeBase(Parameter),
     Halt,
 }
 
@@ -37,6 +39,7 @@ pub struct Computer {
     pub input: VecDeque<i64>,
     ip: usize,
     modes: i64,
+    relative_base: isize,
 }
 
 impl Computer {
@@ -54,6 +57,7 @@ impl Computer {
             input: input.iter().copied().collect(),
             ip: 0,
             modes: 0,
+            relative_base: 0,
         }
     }
 
@@ -74,6 +78,7 @@ impl Computer {
         match param_mode {
             0 => Parameter::Position(self.read()),
             1 => Parameter::Immediate(self.read()),
+            2 => Parameter::Relative(self.read()),
             _ => unreachable!(),
         }
     }
@@ -107,6 +112,7 @@ impl Computer {
                 self.create_parameter(),
                 self.create_parameter(),
             ),
+            9 => Instruction::RelativeBase(self.create_parameter()),
             99 => Instruction::Halt,
             _ => unreachable!(),
         }
@@ -114,8 +120,16 @@ impl Computer {
 
     fn value(&self, param: Parameter) -> i64 {
         match param {
-            Parameter::Position(addr) => self.memory[usize::try_from(addr).unwrap()],
+            Parameter::Position(addr) => {
+                let addr = usize::try_from(addr).unwrap();
+                *self.memory.get(addr).unwrap_or(&0)
+            }
             Parameter::Immediate(val) => val,
+            Parameter::Relative(offset) => {
+                let offset = isize::try_from(offset).unwrap();
+                let addr = usize::try_from(offset + self.relative_base).unwrap();
+                *self.memory.get(addr).unwrap_or(&0)
+            }
         }
     }
 
@@ -123,7 +137,15 @@ impl Computer {
         let dst = match param {
             Parameter::Position(addr) => usize::try_from(addr).unwrap(),
             Parameter::Immediate(_) => unreachable!(),
+            Parameter::Relative(offset) => {
+                let offset = isize::try_from(offset).unwrap();
+                usize::try_from(offset + self.relative_base).unwrap()
+            }
         };
+
+        if dst >= self.memory.len() {
+            self.memory.resize(dst + 1, 0);
+        }
 
         self.memory[dst] = val;
     }
@@ -174,6 +196,10 @@ impl Computer {
                         0
                     },
                 ),
+                Instruction::RelativeBase(offset) => {
+                    let offset = isize::try_from(self.value(offset)).unwrap();
+                    self.relative_base += offset
+                }
                 Instruction::Halt => return State::Halt,
             }
         }
