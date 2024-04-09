@@ -2,7 +2,7 @@ use std::io;
 
 use aoc2019::intcode;
 
-fn execute_diagnostic_program(prog: &[i32], input: &[i32]) -> i32 {
+fn execute_diagnostic_program(prog: &[i64], input: &[i64]) -> i64 {
     let mut diagnostic_code = 0;
 
     let mut comp = intcode::Computer::new(prog, input);

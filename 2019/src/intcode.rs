@@ -1,7 +1,7 @@
 use std::collections::VecDeque;
 use std::io;
 
-pub fn parse_program(input: impl io::Read) -> Vec<i32> {
+pub fn parse_program(input: impl io::Read) -> Vec<i64> {
     io::read_to_string(input)
         .unwrap()
         .trim()
@@ -11,8 +11,8 @@ pub fn parse_program(input: impl io::Read) -> Vec<i32> {
 }
 
 enum Parameter {
-    Position(i32),
-    Immediate(i32),
+    Position(i64),
+    Immediate(i64),
 }
 
 enum Instruction {
@@ -29,26 +29,26 @@ enum Instruction {
 
 pub enum State {
     Halt,
-    Output(i32),
+    Output(i64),
 }
 
 pub struct Computer {
-    pub memory: Vec<i32>,
-    pub input: VecDeque<i32>,
+    pub memory: Vec<i64>,
+    pub input: VecDeque<i64>,
     ip: usize,
-    modes: i32,
+    modes: i64,
 }
 
 impl Computer {
-    fn opcode(inst: i32) -> i32 {
+    fn opcode(inst: i64) -> i64 {
         inst % 100
     }
 
-    fn param_modes(inst: i32) -> i32 {
+    fn param_modes(inst: i64) -> i64 {
         inst / 100
     }
 
-    pub fn new(program: &[i32], input: &[i32]) -> Self {
+    pub fn new(program: &[i64], input: &[i64]) -> Self {
         Self {
             memory: program.to_vec(),
             input: input.iter().copied().collect(),
@@ -57,13 +57,13 @@ impl Computer {
         }
     }
 
-    fn read(&mut self) -> i32 {
+    fn read(&mut self) -> i64 {
         let val = self.memory[self.ip];
         self.ip += 1;
         val
     }
 
-    fn next_param_mode(&mut self) -> i32 {
+    fn next_param_mode(&mut self) -> i64 {
         let val = self.modes % 10;
         self.modes /= 10;
         val
@@ -112,14 +112,14 @@ impl Computer {
         }
     }
 
-    fn value(&self, param: Parameter) -> i32 {
+    fn value(&self, param: Parameter) -> i64 {
         match param {
             Parameter::Position(addr) => self.memory[usize::try_from(addr).unwrap()],
             Parameter::Immediate(val) => val,
         }
     }
 
-    fn write(&mut self, param: Parameter, val: i32) {
+    fn write(&mut self, param: Parameter, val: i64) {
         let dst = match param {
             Parameter::Position(addr) => usize::try_from(addr).unwrap(),
             Parameter::Immediate(_) => unreachable!(),
