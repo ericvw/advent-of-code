@@ -1,6 +1,7 @@
 use std::ops::Add;
+use std::ops::Sub;
 
-#[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
+#[derive(Debug, Default, Copy, Clone, Hash, Eq, PartialEq, Ord, PartialOrd)]
 pub struct Point {
     pub x: i32,
     pub y: i32,
@@ -19,6 +20,17 @@ impl Add for Point {
         Self {
             x: self.x + other.x,
             y: self.y + other.y,
+        }
+    }
+}
+
+impl Sub for Point {
+    type Output = Self;
+
+    fn sub(self, other: Self) -> Self {
+        Self {
+            x: self.x - other.x,
+            y: self.y - other.y,
         }
     }
 }
