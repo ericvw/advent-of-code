@@ -3,7 +3,7 @@ use std::collections::HashSet;
 use std::convert::From;
 use std::io;
 
-use aoc2019::grid::Coordinate;
+use aoc2019::grid::Point;
 
 #[derive(Copy, Clone)]
 enum Direction {
@@ -30,10 +30,10 @@ struct Vector {
     magnitude: u32,
 }
 
-fn trace_path(path: &Vec<Vector>) -> HashMap<Coordinate, u32> {
+fn trace_path(path: &Vec<Vector>) -> HashMap<Point, u32> {
     let mut trace = HashMap::new();
 
-    let mut c = Coordinate(0, 0);
+    let mut c = Point { x: 0, y: 0 };
     let mut len = 0;
 
     for &Vector {
@@ -42,10 +42,10 @@ fn trace_path(path: &Vec<Vector>) -> HashMap<Coordinate, u32> {
     } in path
     {
         let step = match direction {
-            Direction::Up => Coordinate(0, 1),
-            Direction::Down => Coordinate(0, -1),
-            Direction::Left => Coordinate(-1, 0),
-            Direction::Right => Coordinate(1, 0),
+            Direction::Up => Point { x: 0, y: 1 },
+            Direction::Down => Point { x: 0, y: -1 },
+            Direction::Left => Point { x: -1, y: 0 },
+            Direction::Right => Point { x: 1, y: 0 },
         };
 
         for _ in 0..magnitude {
@@ -86,7 +86,7 @@ fn main() {
         "Part 1: {}",
         intersections
             .clone()
-            .map(|c| c.manhattan_distance(Coordinate(0, 0)))
+            .map(|c| c.manhattan_distance(Point { x: 0, y: 0 }))
             .min()
             .unwrap()
     );
