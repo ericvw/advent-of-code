@@ -2,7 +2,8 @@ use std::collections::HashMap;
 use std::collections::HashSet;
 use std::convert::From;
 use std::io;
-use std::ops::Add;
+
+use aoc2019::grid::Coordinate;
 
 #[derive(Copy, Clone)]
 enum Direction {
@@ -27,23 +28,6 @@ impl From<char> for Direction {
 struct Vector {
     direction: Direction,
     magnitude: u32,
-}
-
-#[derive(Copy, Clone, Hash, Eq, PartialEq)]
-struct Coordinate(i32, i32);
-
-impl Coordinate {
-    fn manhattan_distance(&self, Coordinate(x, y): Coordinate) -> u32 {
-        x.abs_diff(self.0) + y.abs_diff(self.1)
-    }
-}
-
-impl Add for Coordinate {
-    type Output = Self;
-
-    fn add(self, other: Self) -> Self {
-        Self(self.0 + other.0, self.1 + other.1)
-    }
 }
 
 fn trace_path(path: &Vec<Vector>) -> HashMap<Coordinate, u32> {
