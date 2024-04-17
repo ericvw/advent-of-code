@@ -1,18 +1,24 @@
 use std::ops::Add;
 
 #[derive(Debug, Copy, Clone, Hash, Eq, PartialEq)]
-pub struct Coordinate(pub i32, pub i32);
+pub struct Point {
+    pub x: i32,
+    pub y: i32,
+}
 
-impl Coordinate {
-    pub fn manhattan_distance(&self, Coordinate(x, y): Coordinate) -> u32 {
-        x.abs_diff(self.0) + y.abs_diff(self.1)
+impl Point {
+    pub fn manhattan_distance(&self, other: Self) -> u32 {
+        self.x.abs_diff(other.x) + self.y.abs_diff(other.y)
     }
 }
 
-impl Add for Coordinate {
+impl Add for Point {
     type Output = Self;
 
     fn add(self, other: Self) -> Self {
-        Self(self.0 + other.0, self.1 + other.1)
+        Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
     }
 }
