@@ -49,7 +49,7 @@ fn trace_path(path: &Vec<Vector>) -> HashMap<Point, u32> {
         };
 
         for _ in 0..magnitude {
-            c = c + step;
+            c += step;
             len += 1;
             trace.entry(c).or_insert(len);
         }

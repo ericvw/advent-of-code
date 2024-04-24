@@ -1,4 +1,5 @@
 use std::ops::Add;
+use std::ops::AddAssign;
 use std::ops::Sub;
 
 #[derive(Debug, Default, Copy, Clone, Hash, Eq, PartialEq, Ord, PartialOrd)]
@@ -18,6 +19,15 @@ impl Add for Point {
 
     fn add(self, other: Self) -> Self {
         Self {
+            x: self.x + other.x,
+            y: self.y + other.y,
+        }
+    }
+}
+
+impl AddAssign for Point {
+    fn add_assign(&mut self, other: Self) {
+        *self = Self {
             x: self.x + other.x,
             y: self.y + other.y,
         }
