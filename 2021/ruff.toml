@@ -1,3 +1,10 @@
+# Group errors by file.
+output-format = "full"
+
+# Show sumamry of fixes.
+show-fixes = true
+
+[lint]
 extend-select = [
     "W", # pycodestyle warnings
     "I", # isort
@@ -5,16 +12,7 @@ extend-select = [
     "B", # flake8-bugbear
 ]
 
-# Group errors by file.
-output-format = "grouped"
-
-# Show source context of error.
-show-source = true
-
-# Show sumamry of fixes.
-show-fixes = true
-
-[isort]
+[lint.isort]
 force-single-line = true
 force-sort-within-sections = true
 order-by-type = false
