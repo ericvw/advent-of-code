@@ -37,7 +37,7 @@ lint-types:
 
 .PHONY: format
 format:
-	$(ruff) --fix-only $(srcs)
+	$(ruff) check --fix-only $(srcs)
 	$(black) $(srcs)
 
 .PHONY: distclean
