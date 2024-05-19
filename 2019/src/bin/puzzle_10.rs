@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use std::io;
 
 use aoc2019::grid::Point;
+use aoc2019::num;
 
 #[derive(Ord, PartialOrd, Eq, PartialEq)]
 struct AsteroidMetadata {
@@ -10,14 +11,8 @@ struct AsteroidMetadata {
     distance: u32,
 }
 
-fn gcd(mut a: i32, mut b: i32) -> i32 {
-    while b != 0 {
-        let t = b;
-        b = a % b;
-        a = t;
-    }
-
-    a.abs()
+fn gcd(a: i32, b: i32) -> i32 {
+    num::gcd(a.into(), b.into()).try_into().unwrap()
 }
 
 fn distances_from(
