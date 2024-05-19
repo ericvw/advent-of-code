@@ -20,7 +20,7 @@ srcbindir := $(srcdir)/bin
 srcs := $(wildcard $(srcbindir)/puzzle_*$(ext))
 answers := $(subst puzzle,answer,$(patsubst %$(ext),%.txt, $(notdir $(srcs))))
 
-intcode_deps := $(wildcard $(srcdir)/*.rs)
+library_deps := $(wildcard $(srcdir)/*.rs)
 
 include $(CURDIR)/../mk-common/common.mk
 
@@ -28,13 +28,8 @@ answer_%.txt: $(outputdir)/puzzle_% input_%.txt
 	$(CARGO) run --profile $(PROFILE) --bin $(basename $(notdir $<)) < $(filter-out $<, $^) | tee $@
 
 .NOTINTERMEDIATE: $(outputdir)/puzzle_%
-$(outputdir)/puzzle_%: $(srcbindir)/puzzle_%$(ext)
+$(outputdir)/puzzle_%: $(srcbindir)/puzzle_%$(ext) $(library_deps)
 	$(CARGO) build --profile $(PROFILE) --bin $(basename $(notdir $<))
-
-$(outputdir)/puzzle_02: $(intcode_deps)
-$(outputdir)/puzzle_05: $(intcode_deps)
-$(outputdir)/puzzle_07: $(intcode_deps)
-$(outputdir)/puzzle_09: $(intcode_deps)
 
 .PHONY: lint
 lint: lint-code lint-format
