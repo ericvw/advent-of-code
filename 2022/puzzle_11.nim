@@ -112,7 +112,7 @@ proc monkeyBusiness(
 ): int =
     var monkeys = monkeysInit
 
-    var inspectedItems = newSeqWith[int](monkeys.len, 0)
+    var inspectedItems = newSeqWith(monkeys.len, 0)
     for round in 1 .. rounds:
         for monkey in monkeys.mitems:
             while monkey.items.len > 0:
