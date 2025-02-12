@@ -24,7 +24,7 @@ type
 
 func parseJob(s: string): Job =
     let tokens = s.split(':')
-    let jobTokens = tokens[1].splitWhiteSpace()
+    let jobTokens = tokens[1].splitWhitespace()
     if jobTokens.len == 1:
         Job(
             name: tokens[0],
