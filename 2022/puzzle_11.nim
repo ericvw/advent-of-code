@@ -27,7 +27,7 @@ type
 
 func matchItems(input: string, items: var seq[int], start: int): int =
     for inItem in input[start .. ^1].split(", "):
-        items.add(inItem.parseint)
+        items.add(inItem.parseInt)
     result = input.len - start
 
 iterator parseMonkeys(input: File): Monkey =
@@ -83,7 +83,7 @@ func execOperation(m: Monkey, old: int): int =
     if m.operation.operand == "old":
         rhs = old
     else:
-        rhs = m.operation.operand.parseint
+        rhs = m.operation.operand.parseInt
 
     case m.operation.operator:
     of MULTIPLY: old * rhs

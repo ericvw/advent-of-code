@@ -42,7 +42,7 @@ for line in startingStacks.reverse:
 
 var procedures: RearrangementProcedures
 for line in stdin.lines:
-    let (success, num, src, dst) = line.scantuple("move $i from $i to $i")
+    let (success, num, src, dst) = line.scanTuple("move $i from $i to $i")
     assert success
     procedures.add((num, src - 1, dst - 1))
 
@@ -57,7 +57,7 @@ supplies = initSupplies
 for (quantity, src, dst) in procedures:
     var tmp: Deque[char]
     for i in 1..quantity:
-        tmp.addLast(supplies[src].poplast)
+        tmp.addLast(supplies[src].popLast)
     while tmp.len > 0:
         supplies[dst].addLast(tmp.popLast)
 

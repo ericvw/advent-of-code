@@ -100,7 +100,7 @@ func pressuresReleased(
         let cur = q.popFirst()
         for next in cur.states(valves):
             result[next.visited] = max(
-                result.getorDefault(next.visited, 0),
+                result.getOrDefault(next.visited, 0),
                 next.pressureReleased,
             )
             q.addLast(next)
