@@ -75,7 +75,7 @@ impl<'a> Image<'a> {
     }
 }
 
-impl<'a> fmt::Display for Image<'a> {
+impl fmt::Display for Image<'_> {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         for row in 0..self.height {
             for col in 0..self.width {
