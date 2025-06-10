@@ -16,6 +16,7 @@ fn run_amplifier_loop(program: &[i64], phase_settings: &[i64]) -> i64 {
             signal = match a.run() {
                 intcode::State::Output(x) => x,
                 intcode::State::Halt => break 'feedback_loop,
+                _ => continue,
             };
         }
     }

@@ -6,11 +6,8 @@ fn execute_program(prog: &[i64], input: &[i64]) -> i64 {
     let mut output = 0;
 
     let mut comp = intcode::Computer::new(prog, input);
-    loop {
-        output = match comp.run() {
-            intcode::State::Output(x) => x,
-            intcode::State::Halt => break,
-        };
+    while let intcode::State::Output(x) = comp.run() {
+        output = x;
     }
 
     output
