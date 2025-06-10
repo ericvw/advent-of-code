@@ -6,11 +6,8 @@ fn execute_diagnostic_program(prog: &[i64], input: &[i64]) -> i64 {
     let mut diagnostic_code = 0;
 
     let mut comp = intcode::Computer::new(prog, input);
-    loop {
-        diagnostic_code = match comp.run() {
-            intcode::State::Output(x) => x,
-            intcode::State::Halt => break,
-        }
+    while let intcode::State::Output(x) = comp.run() {
+        diagnostic_code = x;
     }
 
     diagnostic_code

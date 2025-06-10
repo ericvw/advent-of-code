@@ -32,6 +32,7 @@ enum Instruction {
 pub enum State {
     Halt,
     Output(i64),
+    AwaitInput,
 }
 
 pub struct Computer {
@@ -165,8 +166,12 @@ impl Computer {
                     self.write(dst, self.value(op1) * self.value(op2));
                 }
                 Instruction::Input(dst) => {
-                    let val = self.input.pop_front().unwrap();
-                    self.write(dst, val);
+                    if let Some(val) = self.input.pop_front() {
+                        self.write(dst, val);
+                    } else {
+                        self.ip -= 2;
+                        return State::AwaitInput;
+                    }
                 }
                 Instruction::Output(val) => return State::Output(self.value(val)),
 
