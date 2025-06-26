@@ -1,7 +1,7 @@
 use std::io;
 
 fn main() {
-    print!("{}", io::read_to_string(io::stdin()).unwrap());
+    let lines = io::stdin().lines().map(|line| line.unwrap()).collect::<Vec<_>>();
 
     println!("Part 1: {}", "");
 
