@@ -4,9 +4,8 @@ import std/tables
 
 var
     strategyGuide: seq[tuple[col1: char, col2: char]]
-    line: string
 
-while stdin.readLine(line):
+for line in stdin.lines:
     let round = line.splitWhitespace()
     assert round.len() == 2
     strategyGuide.add((round[0][0].char, round[1][0].char))

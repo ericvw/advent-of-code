@@ -5,9 +5,8 @@ import std/strutils
 var
     elves: seq[seq[int]]
     calories: seq[int]
-    line: string
 
-while stdin.readLine(line):
+for line in stdin.lines:
     if len(line) == 0:
         elves.add(calories)
         calories.setLen(0)
