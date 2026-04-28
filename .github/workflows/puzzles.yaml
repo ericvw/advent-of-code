@@ -50,7 +50,7 @@ jobs:
       - name: Run
         run: make
 
-      - name: Install auxillary tools
+      - name: Install auxiliary tools
         run: pip install -U -r requirements.txt
 
       - name: Lint
@@ -67,7 +67,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up enviroment
+      - name: Set up environment
         uses: jiro4989/setup-nim-action@v1
 
       - name: Run
