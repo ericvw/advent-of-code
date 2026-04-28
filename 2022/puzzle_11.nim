@@ -25,11 +25,6 @@ type
         operation: OperationState
         test: TestState
 
-func matchItems(input: string, items: var seq[int], start: int): int =
-    for inItem in input[start .. ^1].split(", "):
-        items.add(inItem.parseInt)
-    result = input.len - start
-
 iterator parseMonkeys(input: File): Monkey =
     var line: string
     while input.readLine(line):
@@ -37,9 +32,10 @@ iterator parseMonkeys(input: File): Monkey =
         if not scanf(line, "Monkey $i:$.", id):
             break
 
-        var items: seq[int]
-        if not scanf(input.readLine, "$sStarting items: ${matchItems}$.", items):
+        var itemsStr: string
+        if not scanf(input.readLine, "$sStarting items: $*$.", itemsStr):
             break
+        let items = itemsStr.split(", ").mapIt(it.parseInt)
 
         var operator: char
         var operand: string
