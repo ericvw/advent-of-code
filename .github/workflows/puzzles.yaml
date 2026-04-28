@@ -72,3 +72,6 @@ jobs:
 
       - name: Run
         run: make
+
+      - name: Lint
+        run: make lint

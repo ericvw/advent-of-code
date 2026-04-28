@@ -13,6 +13,13 @@ answer_%.txt: puzzle_% input_%.txt
 puzzle_%: puzzle_%$(ext) nim.cfg
 	$(NIM) c $<
 
+.PHONY: lint
+lint: lint-format
+
+.PHONY: lint-format
+lint-format:
+	for src in $(srcs); do $(NIM) check $$src; done
+
 .PHONY: format
 format:
 	nimpretty $(srcs)
