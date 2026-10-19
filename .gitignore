@@ -6,6 +6,9 @@
 # Python version managed by pyenv.
 .python-version
 
+# Inputs for each puzzle.
+input_*.txt
+
 # Answers for each puzzle.
 answer_*.txt
 
