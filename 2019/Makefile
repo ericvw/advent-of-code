@@ -40,7 +40,6 @@ format:
 	$(CARGO) clippy --fix --allow-dirty
 	$(CARGO) fmt
 
-.PHONY: distclean
-distclean: clean
+distclean:
 	$(CARGO) clean
 	$(RM) Cargo.lock

@@ -24,6 +24,5 @@ lint-format:
 format:
 	nimpretty $(srcs)
 
-.PHONY: distclean
-distclean: clean
+distclean:
 	$(RM) $(basename $(srcs))

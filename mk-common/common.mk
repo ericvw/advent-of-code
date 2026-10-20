@@ -16,3 +16,10 @@ input_%.txt:
 .PHONY: clean
 clean:
 	$(RM) $(answers)
+
+.PHONY: clean-inputs
+clean-inputs:
+	$(RM) input_*.txt
+
+.PHONY: distclean
+distclean: clean clean-inputs

@@ -24,6 +24,5 @@ lint-code:
 format:
 	golangci-lint fmt $(srcs)
 
-.PHONY: distclean
-distclean: clean
+distclean:
 	$(RM) $(basename $(srcs))

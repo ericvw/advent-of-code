@@ -33,7 +33,6 @@ format:
 	$(ruff) check --fix-only $(srcs)
 	$(black) $(srcs)
 
-.PHONY: distclean
-distclean: clean
+distclean:
 	$(RM) -r .mypy_cache
 	$(ruff) clean
