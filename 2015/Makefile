@@ -18,7 +18,7 @@ lint: lint-code
 
 .PHONY: lint-code
 lint-code:
-	golangci-lint run $(srcs)
+	for src in $(srcs); do golangci-lint run $$src; done
 
 .PHONY: format
 format:
